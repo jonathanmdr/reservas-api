@@ -3,6 +3,7 @@ package com.teste.reservasapi.resource;
 import com.teste.reservasapi.event.RecursoCriadoEvent;
 import com.teste.reservasapi.model.Cliente;
 import com.teste.reservasapi.repository.ClienteRepository;
+import com.teste.reservasapi.repository.filter.ClienteFilter;
 import com.teste.reservasapi.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -29,8 +30,8 @@ public class ClienteResource {
     private ApplicationEventPublisher eventPublisher;
 
     @GetMapping
-    public Page<Cliente> findAll(Pageable pageable) {
-        return clienteRepository.findAll(pageable);
+    public Page<Cliente> findAll(ClienteFilter clienteFilter, Pageable pageable) {
+        return clienteRepository.findAllFiltered(clienteFilter, pageable);
     }
 
     @GetMapping("/{id}")

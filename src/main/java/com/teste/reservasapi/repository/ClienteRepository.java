@@ -1,12 +1,9 @@
 package com.teste.reservasapi.repository;
 
 import com.teste.reservasapi.model.Cliente;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.teste.reservasapi.repository.Cliente.ClienteRepositoryQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-
-    Page<Cliente> findAll(Pageable pageable);
+public interface ClienteRepository extends JpaRepository<Cliente, Long>, ClienteRepositoryQuery {
 
 }

@@ -25,7 +25,7 @@ public class Cliente {
     private String nome;
 
     @NotNull
-    @Size(max = 20)
+    @Size(min = 5, max = 20)
     private String documento;
 
     @NotNull

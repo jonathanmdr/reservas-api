@@ -3,6 +3,7 @@ package com.teste.reservasapi.resource;
 import com.teste.reservasapi.event.RecursoCriadoEvent;
 import com.teste.reservasapi.model.Cliente;
 import com.teste.reservasapi.repository.ClienteRepository;
+import com.teste.reservasapi.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ public class ClienteResource {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ClienteService clienteService;
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -43,6 +47,13 @@ public class ClienteResource {
         eventPublisher.publishEvent(new RecursoCriadoEvent(this, response, clienteSalvo.getId()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> update(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
+        Cliente clienteSalvo = clienteService.update(id, cliente);
+
+        return ResponseEntity.ok(clienteSalvo);
     }
 
 }

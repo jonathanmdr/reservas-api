@@ -56,4 +56,10 @@ public class ClienteResource {
         return ResponseEntity.ok(clienteSalvo);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        clienteRepository.delete(id);
+    }
+
 }

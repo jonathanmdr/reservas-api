@@ -9,4 +9,8 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     Page<Reserva> findAll(Pageable pageable);
 
+    Page<Reserva> findAllByDataCheckOutIsNull(Pageable pageable);
+
+    Page<Reserva> findAllByDataCheckOutIsNotNull(Pageable pageable);
+
 }

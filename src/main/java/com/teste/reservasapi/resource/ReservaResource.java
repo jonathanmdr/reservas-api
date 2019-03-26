@@ -21,4 +21,14 @@ public class ReservaResource {
         return reservaRepository.findAll(pageable);
     }
 
+    @GetMapping(params = "checkout")
+    public Page<Reserva> findAllByDataCheckOutIsNotNull(Pageable pageable) {
+        return reservaRepository.findAllByDataCheckOutIsNotNull(pageable);
+    }
+
+    @GetMapping(params = "checkin")
+    public Page<Reserva> findAllByDataCheckOutIsNull(Pageable pageable) {
+        return reservaRepository.findAllByDataCheckOutIsNull(pageable);
+    }
+
 }

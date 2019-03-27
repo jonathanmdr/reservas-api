@@ -1,11 +1,11 @@
 # Reservas-API
 CRUD de uma API RESTful desenvolvida em Java utilizando Spring Boot.
 
-[![node](https://img.shields.io/badge/Java-1.8.0-lightgray.svg)](https://www.java.com/pt_BR/download/)
-[![node](https://img.shields.io/badge/Maven-3.5.4-steelblue.svg)](https://maven.apache.org/download.cgi)
+[![node](https://img.shields.io/badge/Java_Version-1.8.0-lightgray.svg)](https://www.java.com/pt_BR/download/)
+[![node](https://img.shields.io/badge/Maven_Version-3.5.4-steelblue.svg)](https://maven.apache.org/download.cgi)
 [![node](https://img.shields.io/badge/Plugin-Lombok_1.18.6-indianRed.svg)](https://projectlombok.org/)
-[![node](https://img.shields.io/badge/Database-PostgreSQL--9.4.1212-blue.svg)](https://www.postgresql.org/download/)
-[![node](https://img.shields.io/badge/Hibernate-5.4.1--Final-peru.svg)](http://hibernate.org/)
+[![node](https://img.shields.io/badge/Database-PostgreSQL_9.4.1212-blue.svg)](https://www.postgresql.org/download/)
+[![node](https://img.shields.io/badge/Hibernate-5.4.1.Final-peru.svg)](http://hibernate.org/)
 
  # Configurações 
  ### Configuração da base de dados PostgreSQL:

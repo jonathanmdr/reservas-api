@@ -3,8 +3,6 @@ package com.teste.reservasapi.service.utils;
 import com.teste.reservasapi.model.Reserva;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 public class CalculaDiariaHospedagem {
 
@@ -14,55 +12,44 @@ public class CalculaDiariaHospedagem {
     private static Double CARRO_FINAL_SEMANA = 20D;
 
     public static Double getValor(Reserva reserva) {
-        return calcularDiaria(toDate(reserva.getDataCheckIn()), toDate(reserva.getDataCheckOut()), reserva.getAdicionalCarro());
+        return calcularDiaria(reserva.getDataCheckIn(), reserva.getDataCheckOut(), reserva.getAdicionalCarro());
     }
 
-    public static Double getValor(LocalDateTime data, boolean veiculo) {
-        return calcularDiaria(data, veiculo);
+    public static Double getValor(LocalDateTime dataCheckin, boolean adicionalVeiculo) {
+        return calcularDiaria(dataCheckin, adicionalVeiculo);
     }
 
-    private static Double calcularDiaria(Date dataCheckin, Date dataCheckout, boolean veiculo) {
+    private static Double calcularDiaria(LocalDateTime dataCheckin, LocalDateTime dataCheckout, boolean adicionalVeiculo) {
         Double valorTotal = 0D;
 
-        LocalDateTime dataEntrada = toDateTime(dataCheckin);
-        LocalDateTime dataSaida = toDateTime(dataCheckout);
-
-        if ((dataSaida.getHour() * 60 + dataSaida.getMinute()) / 60 >= 16.5) {
-            dataSaida = dataSaida.plusDays(1);
+        if ((dataCheckout.getHour() * 60 + dataCheckout.getMinute()) / 60 >= 16.5) {
+            dataCheckout = dataCheckout.plusDays(1);
         }
 
-        while (dataSaida.toLocalDate().isAfter(dataEntrada.toLocalDate())) {
-            valorTotal += calcularDiaria(dataEntrada, veiculo);
-            dataEntrada = dataEntrada.plusDays(1);
+        while (dataCheckout.toLocalDate().isAfter(dataCheckin.toLocalDate())) {
+            valorTotal += calcularDiaria(dataCheckin, adicionalVeiculo);
+            dataCheckin = dataCheckin.plusDays(1);
         }
 
         return valorTotal;
     }
 
-    private static Double calcularDiaria(LocalDateTime dia, boolean veiculo) {
+    private static Double calcularDiaria(LocalDateTime dia, boolean adicionalVeiculo) {
         Double valor = 0D;
 
         if (dia.getDayOfWeek().getValue() != 5 && (dia.getDayOfWeek().getValue() != 6)) {
             valor += DIARIA_NORMAL;
-            if (veiculo) {
+            if (adicionalVeiculo) {
                 valor += CARRO_NORMAL;
             }
         } else {
             valor += DIARIA_FINAL_SEMANA;
-            if (veiculo) {
+            if (adicionalVeiculo) {
                 valor += CARRO_FINAL_SEMANA;
             }
         }
 
         return valor;
-    }
-
-    private static LocalDateTime toDateTime(Date date) {
-        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-    }
-
-    private static Date toDate(LocalDateTime date) {
-        return Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
     }
 
 }

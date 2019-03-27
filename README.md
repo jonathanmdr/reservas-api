@@ -18,7 +18,7 @@ CRUD de uma API RESTful desenvolvida em Java utilizando Spring Boot.
       ENCODING = 'UTF8'
       CONNECTION LIMIT = -1;    
       
- O usuário padrão de conexão configurado é: <html><b>postgres</b></html> e o password padrão configurado é <html><b>masterkey</b></html>, caso utilize usuário e, ou senha diferente, você deve tais informações no arquivo ```application.properties```.
+ O usuário padrão de conexão com o banco de dados configurado é: <html><b>postgres</b></html> e o password padrão configurado é <html><b>masterkey</b></html>, caso utilize usuário e, ou senha diferente, você deve alterar tais informações no arquivo ```application.properties```.
  </br>
  Propriedades:
  </br>

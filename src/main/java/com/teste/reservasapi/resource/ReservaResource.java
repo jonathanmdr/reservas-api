@@ -3,7 +3,6 @@ package com.teste.reservasapi.resource;
 import com.teste.reservasapi.event.RecursoCriadoEvent;
 import com.teste.reservasapi.exceptionhandler.ReservasApiExceptionHandler;
 import com.teste.reservasapi.model.Reserva;
-import com.teste.reservasapi.repository.ReservaRepository;
 import com.teste.reservasapi.service.ReservaService;
 import com.teste.reservasapi.service.exception.ClienteInexistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ import java.util.List;
 public class ReservaResource {
 
     @Autowired
-    private ReservaRepository reservaRepository;
-
-    @Autowired
     private ReservaService reservaService;
 
     @Autowired
@@ -39,22 +35,22 @@ public class ReservaResource {
 
     @GetMapping
     public Page<Reserva> findAll(Pageable pageable) {
-        return reservaRepository.findAll(pageable);
+        return reservaService.findAll(pageable);
     }
 
     @GetMapping(params = "checkout")
     public Page<Reserva> findAllByDataCheckOutIsNotNull(Pageable pageable) {
-        return reservaRepository.findAllByDataCheckOutIsNotNull(pageable);
+        return reservaService.findAllByDataCheckOutIsNotNull(pageable);
     }
 
     @GetMapping(params = "checkin")
     public Page<Reserva> findAllByDataCheckOutIsNull(Pageable pageable) {
-        return reservaRepository.findAllByDataCheckOutIsNull(pageable);
+        return reservaService.findAllByDataCheckOutIsNull(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Reserva> findOne(@PathVariable Long id) {
-        Reserva reserva = reservaRepository.findOne(id);
+        Reserva reserva = reservaService.findOne(id);
 
         return reserva != null ? ResponseEntity.ok(reserva) : ResponseEntity.notFound().build();
     }
@@ -78,7 +74,7 @@ public class ReservaResource {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        reservaRepository.delete(id);
+        reservaService.delete(id);
     }
 
     @ExceptionHandler(ClienteInexistenteException.class)

@@ -2,7 +2,6 @@ package com.teste.reservasapi.resource;
 
 import com.teste.reservasapi.event.RecursoCriadoEvent;
 import com.teste.reservasapi.model.Cliente;
-import com.teste.reservasapi.repository.ClienteRepository;
 import com.teste.reservasapi.repository.filter.ClienteFilter;
 import com.teste.reservasapi.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ import javax.validation.Valid;
 public class ClienteResource {
 
     @Autowired
-    private ClienteRepository clienteRepository;
-
-    @Autowired
     private ClienteService clienteService;
 
     @Autowired
@@ -31,19 +27,19 @@ public class ClienteResource {
 
     @GetMapping
     public Page<Cliente> findAll(ClienteFilter clienteFilter, Pageable pageable) {
-        return clienteRepository.findAllFiltered(clienteFilter, pageable);
+        return clienteService.findAllFiltered(clienteFilter, pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> findOne(@PathVariable Long id) {
-        Cliente cliente = clienteRepository.findOne(id);
+        Cliente cliente = clienteService.findOne(id);
 
         return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<Cliente> save(@Valid @RequestBody Cliente cliente, HttpServletResponse response) {
-        Cliente clienteSalvo = clienteRepository.save(cliente);
+        Cliente clienteSalvo = clienteService.save(cliente);
 
         eventPublisher.publishEvent(new RecursoCriadoEvent(this, response, clienteSalvo.getId()));
 
@@ -60,7 +56,7 @@ public class ClienteResource {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        clienteRepository.delete(id);
+        clienteService.delete(id);
     }
 
 }

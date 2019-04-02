@@ -9,6 +9,8 @@ import com.teste.reservasapi.service.utils.CalculaDiariaHospedagem;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,6 +23,22 @@ public class ReservaService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    public Page<Reserva> findAll(Pageable pageable) {
+        return reservaRepository.findAll(pageable);
+    }
+
+    public Page<Reserva> findAllByDataCheckOutIsNotNull(Pageable pageable) {
+        return reservaRepository.findAllByDataCheckOutIsNotNull(pageable);
+    }
+
+    public Page<Reserva> findAllByDataCheckOutIsNull(Pageable pageable) {
+        return reservaRepository.findAllByDataCheckOutIsNull(pageable);
+    }
+
+    public Reserva findOne(Long id) {
+        return reservaRepository.findOne(id);
+    }
 
     public Reserva save(Reserva reserva) {
         reserva.setValor(new BigDecimal(CalculaDiariaHospedagem.getValor(reserva.getDataCheckIn(), reserva.getAdicionalCarro())));
@@ -42,6 +60,10 @@ public class ReservaService {
         reservaSalva.setValor(new BigDecimal(CalculaDiariaHospedagem.getValor(reservaSalva)));
 
         return reservaRepository.save(reservaSalva);
+    }
+
+    public void delete(Long id) {
+        reservaRepository.delete(id);
     }
 
     private Reserva findById(Long id) {

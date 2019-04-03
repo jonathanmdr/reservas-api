@@ -78,7 +78,7 @@ public class ReservaResource {
     }
 
     @ExceptionHandler(ClienteInexistenteException.class)
-    public ResponseEntity<Object> handlePessoaInexistenteOuInativaException(ClienteInexistenteException ex) {
+    public ResponseEntity<Object> handleClienteInexistenteException(ClienteInexistenteException ex) {
         String mensagemUsuario = messageSource.getMessage("cliente.inexistente", null, LocaleContextHolder.getLocale());
         String mensagemDesenvolvedor = ex.toString();
 

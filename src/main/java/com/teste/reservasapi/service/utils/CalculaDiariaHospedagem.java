@@ -2,6 +2,7 @@ package com.teste.reservasapi.service.utils;
 
 import com.teste.reservasapi.model.Reserva;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public class CalculaDiariaHospedagem {
@@ -37,7 +38,7 @@ public class CalculaDiariaHospedagem {
     private static Double calcularDiaria(LocalDateTime dia, boolean adicionalVeiculo) {
         Double valor = 0D;
 
-        if (dia.getDayOfWeek().getValue() != 5 && (dia.getDayOfWeek().getValue() != 6)) {
+        if (dia.getDayOfWeek() != DayOfWeek.SATURDAY && (dia.getDayOfWeek() != DayOfWeek.SUNDAY)) {
             valor += DIARIA_NORMAL;
             if (adicionalVeiculo) {
                 valor += CARRO_NORMAL;

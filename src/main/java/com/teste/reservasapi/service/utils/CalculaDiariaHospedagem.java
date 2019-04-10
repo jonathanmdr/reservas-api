@@ -11,6 +11,7 @@ public class CalculaDiariaHospedagem {
     private static Double DIARIA_FINAL_SEMANA = 150D;
     private static Double CARRO_NORMAL = 15D;
     private static Double CARRO_FINAL_SEMANA = 20D;
+    private static Double HORARIO_LIMITE_CHECKOUT = 16.5;
 
     public static Double getValor(Reserva reserva) {
         return calcularDiaria(reserva.getDataCheckIn(), reserva.getDataCheckOut(), reserva.getAdicionalCarro());
@@ -23,7 +24,7 @@ public class CalculaDiariaHospedagem {
     private static Double calcularDiaria(LocalDateTime dataCheckin, LocalDateTime dataCheckout, boolean adicionalVeiculo) {
         Double valorTotal = 0D;
 
-        if ((dataCheckout.getHour() * 60 + dataCheckout.getMinute()) / 60 >= 16.5) {
+        if ((dataCheckout.getHour() * 60 + dataCheckout.getMinute()) / 60 >= HORARIO_LIMITE_CHECKOUT) {
             dataCheckout = dataCheckout.plusDays(1);
         }
 
